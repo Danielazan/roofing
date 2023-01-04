@@ -45,7 +45,6 @@ const createBatch= async (req,res)=>{
          if(reb){
            await material.findOneAndUpdate({_id:id}, {PreviousBatch:reb.TotalBatch})
          }
-         await material.findOneAndUpdate({_id:id}, {PreviousBatch:reb.TotalBatch})
          
           const Neb=  await material.findById({_id:id})
       
