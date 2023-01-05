@@ -40,17 +40,28 @@ const createBatch= async (req,res)=>{
             )
         }
 
+            // find a material by id 
          const reb = await material.findById({_id:id})
       
+         // then update the previous batch with the former totol batch
          if(reb){
            await material.findOneAndUpdate({_id:id}, {PreviousBatch:reb.TotalBatch})
+
          }
+         await material.findOneAndUpdate({_id:id}, {PreviousBatch:reb.TotalBatch})
          
+         // again find the material by id
           const Neb=  await material.findById({_id:id})
       
-       
+         // sum the previous batch with the new amount of stock coming in
+
+         await Number(reb.PreviousBatch) + Number(StockIn)
+
          const total = await Number(reb.PreviousBatch) + Number(StockIn)
       
+         // then update the material with the new total batch and stock in 
+         await material.findOneAndUpdate({_id:id}, {TotalBatch:total, NewBatch:StockIn})
+
          await material.findOneAndUpdate({_id:id}, {TotalBatch:total, NewBatch:StockIn})
       
         //res.status(200).json(total)
