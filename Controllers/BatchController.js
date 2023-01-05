@@ -49,7 +49,7 @@ const createBatch= async (req,res)=>{
           const Neb=  await material.findById({_id:id})
       
        
-         const total = await reb.PreviousBatch + StockIn
+         const total = await Number(reb.PreviousBatch) + Number(StockIn)
       
          await material.findOneAndUpdate({_id:id}, {TotalBatch:total, NewBatch:StockIn})
       
