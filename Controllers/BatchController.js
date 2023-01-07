@@ -55,7 +55,7 @@ const UpdateTotal = async (req, res)=>{
 
         const T_batch=await P_batch.PreviousBatch 
 
-        const total =await  Number(T_batch) + Number(stock)
+        const total =await  Number(T_batch) + Number(Stock)
 
         const Done = await material.findOneAndUpdate({_id:id}, {TotalBatch:total})
 
