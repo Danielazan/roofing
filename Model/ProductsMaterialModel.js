@@ -26,11 +26,11 @@ const MaterialSchema = new Schema ({
     },
     PreviousBatch:{
         type:Number,
-        default: 0
+        
     },
     NewBatch:{
         type:Number,
-        default:0 ,
+        
         min: 0
     },
     TotalBatch:{

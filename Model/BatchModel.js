@@ -14,12 +14,11 @@ const batchSchema = new schema ({
     },
     StockIn:{
         type:Number,
-        default:0,
         min: 0
     },
     StockOut:{
         type:Number,
-        default: 0,
+        
     },
     Balance:{
         type:Number,

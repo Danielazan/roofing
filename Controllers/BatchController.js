@@ -20,6 +20,50 @@ const GetAllBatch= async (req, res)=>{
     }
 }
 
+// for updating previous batch with totalbatch remaining
+
+
+const UpdatePrevious= async (req, res)=>{
+
+    try {
+        const {id} =req.params
+        const {Stock, M_Name} = req.body
+
+        const P_batch = await material.findById({_id:id})
+
+        const T_batch = await P_batch.TotalBatch
+
+        if (T_batch == 0){
+            await material.findOneAndUpdate({Name:M_Name}, {PreviousBatch:Stock})
+        }
+
+        const Done = await material.findOneAndUpdate({Name:M_Name}, {PreviousBatch:T_batch})
+
+        console.log(id)
+        res.status(200).json(Done)
+    } catch (error) {
+        return error ? res.status(400).json({error:error.message}) :null
+    }
+}
+const UpdateTotal = async (req, res)=>{
+    console.log ("ok")
+    try {
+        const {id} = req.params
+        const {Stock} = req.body
+
+        const P_batch = await material.findById({_id:id})
+
+        const T_batch=await P_batch.PreviousBatch 
+
+        const total =await  Number(T_batch) + Number(stock)
+
+        const Done = await material.findOneAndUpdate({_id:id}, {TotalBatch:total})
+
+        res.status(200).json(Done)
+    } catch (error) {
+        return error ? res.status(400).json({error:error.message}) : null
+    }
+}
 const createBatch= async (req,res)=>{
 
     const {id}= req.params
@@ -40,41 +84,25 @@ const createBatch= async (req,res)=>{
             )
         }
 
-            // find a material by id 
-         const reb = await material.findById({_id:id})
-      
-         // then update the previous batch with the former totol batch
-         if(reb){
-           await material.findOneAndUpdate({_id:id}, {PreviousBatch:reb.TotalBatch})
-
-         }
-         await material.findOneAndUpdate({_id:id}, {PreviousBatch:reb.TotalBatch})
-         
-         // again find the material by id
-          const Neb=  await material.findById({_id:id})
-      
-         // sum the previous batch with the new amount of stock coming in
-
-         await Number(reb.PreviousBatch) + Number(StockIn)
-
-         const total = await Number(reb.PreviousBatch) + Number(StockIn)
       
          // then update the material with the new total batch and stock in 
-         await material.findOneAndUpdate({_id:id}, {TotalBatch:total, NewBatch:StockIn})
+         await material.findOneAndUpdate({_id:id}, { NewBatch:StockIn})
 
-         await material.findOneAndUpdate({_id:id}, {TotalBatch:total, NewBatch:StockIn})
+        const reb= await material.findOne({_id:id},)
+
+        const T_Bal = await Number(reb.TotalBatch)
+
+        console.log(T_Bal)
       
-        //res.status(200).json(total)
+        //res.status(200).json(T_Bal)
 
         const Createbatch= await BatchModel.create({
             RefNo,
             MaterialName,
             StockIn,
-        Balance:total})
+        Balance:T_Bal})
 
-        const mark = await material.findOneAndUpdate({_id:id}, {RefNo:Createbatch.RefNo})
-
-        console.log(mark)
+       
 
         res.status (200).json(Createbatch)
     }
@@ -118,6 +146,8 @@ const UpdateCreateBatch = async(req, res)=>{
 
 module.exports={
     createBatch,
+    UpdatePrevious,
+    UpdateTotal,
     UpdateCreateBatch,
     GetAllBatch
 } 
