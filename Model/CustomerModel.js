@@ -22,6 +22,7 @@ const customerSchema = new schema ({
         required:true,
         unique:true
     },
+    Refunds:[],
     PaymentMethod:{
         type:String,
         required:true,
