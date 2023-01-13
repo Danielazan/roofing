@@ -114,23 +114,51 @@ const createBatch= async (req,res)=>{
     }
 }
 
+const ProfitMade = async (req, res) =>{
+    const {AmountSold, NormalPrice, Quantity} = req.body
+    try {
+      const Normal = await Number(NormalPrice) * Number(Quantity)
+
+      const Amount = await Number(AmountSold) * Number(Quantity)
+
+      const ProfitGotten =await Amount - Normal
+
+      return ProfitGotten
+
+      //res.status(200).json(ProfitGotten)
+    } catch (error) {
+      return error ? res.status(400).json({error:error.message}) : null
+    }
+  }
+
 const UpdateCreateBatch = async(req, res)=>{
     try {
         const {id}= req.params
         const {
             MaterialName,
             StockOut, 
+            AmountSold, 
+            NormalPrice, 
+            Quantity
         } = req.body
         
+        const Normal = await Number(NormalPrice) * Number(Quantity)
+
+      const Amount = await Number(AmountSold) * Number(Quantity)
+
+      const ProfitGotten =await Amount - Normal
+
         const Batches= await BatchModel.findOne({MaterialName:MaterialName}).sort({createdAt:-1})
 
        const mark = await material.findById({_id:id})
+
 
         const Batch = await BatchModel.create({
         RefNo:Batches.RefNo,
         MaterialName,
         StockOut,
-        Balance:mark.TotalBatch
+        Balance:mark.TotalBatch,
+        Profit:ProfitGotten
         })
 
         res.status(200).json(Batch)
@@ -141,6 +169,7 @@ const UpdateCreateBatch = async(req, res)=>{
 }
 
 // Get A Single Customer
+
 
 
 

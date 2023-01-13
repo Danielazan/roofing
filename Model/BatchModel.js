@@ -23,6 +23,9 @@ const batchSchema = new schema ({
     Balance:{
         type:Number,
     },
+    Profit:{
+        type:Number
+    }
    
 },{timestamps:true})
 
