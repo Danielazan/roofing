@@ -7,6 +7,18 @@ const Customer = require("../Model/CustomerModel")
 
 // const BatchModel= require("../Model/BatchModel")
 
+// const GetAllRecipt= async (req, res)=>{
+    
+//     try {
+//         const order = await Order.find({}).sort({createdAt:-1})
+
+//         res.status(200).json(order)
+
+//     } 
+//     catch (error) {
+//         return error ? res.status(400).json({error:error.message}) : null
+//     }
+// }
 
 // for creating refunds 
 const CreateRefund = async (req,res)=>{
