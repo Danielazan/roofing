@@ -5,7 +5,7 @@ const {
     UpdateOrder,
     createOrder,
     GetAllOrder
-}= require("../Controllers/Report")
+}= require("../Controllers/PurchaseOrderController")
 
 const router = express.Router()
 

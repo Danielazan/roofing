@@ -61,6 +61,8 @@ app.use("/api", Enquiry)
 
 app.use("/api", Batch)
 
+app.use("/api", Order)
+
 mongoose.connect(process.env.MONOURL)
 .then( ()=>{
 
