@@ -97,9 +97,8 @@ const DeleteOrder = async(req,res)=>{
 
 
 module.exports={
-    createBatch,
-    UpdatePrevious,
-    UpdateTotal,
-    UpdateCreateBatch,
-    GetAllBatch
+    DeleteOrder,
+    UpdateOrder,
+    createOrder,
+    GetAllOrder
 } 

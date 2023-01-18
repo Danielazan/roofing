@@ -27,6 +27,8 @@ const Batch = require("./Routes/BatchRoute")
 
 const Refund = require("./Routes/RefundRoute")
 
+const Order = require("./Routes/PurchasedOrderRoute")
+
 require("dotenv").config()
 
 const app = express()
