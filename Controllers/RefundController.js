@@ -29,11 +29,7 @@ const GetRefundPerson = async (req, res)=>{
 
      const cus = await Order.findById({_id:id})
 
-     const iteams = await cus.itemsOrdered.map(item =>{
-        if (item.supplied == false){
-           return item
-        }
-     })
+    const iteams = await cus.itemsOrdered.filter(item => item.supplied === false)
      
      res.status(200).json(iteams)
     } catch (error) {
