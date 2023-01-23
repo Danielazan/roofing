@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 
 const RefundModel = require("../Model/RefundModel")
+const Order = require("../Model/PurchaseOrderModel")
 
 const Customer = require("../Model/CustomerModel")
 
@@ -20,9 +21,34 @@ const Customer = require("../Model/CustomerModel")
 //     }
 // }
 
+// for get persons to refund
+
+const GetRefundPerson = async (req, res)=>{
+    try {
+        const {id} = req.params
+
+     const cus = await Order.findById({_id:id})
+
+     const iteams = await cus.itemsOrdered.map(item =>{
+        if (item.supplied == false){
+           return item
+        }
+     })
+     
+     res.status(200).json(iteams)
+    } catch (error) {
+        return error ? res.status(400).json({error:error.message}) : null
+    }
+}
 // for creating refunds 
 const CreateRefund = async (req,res)=>{
-    const {Name, InvoiceNo, Amount, ItemsRefunded} =req.body
+    const {Name,
+         InvoiceNo, 
+         Amount,
+          ItemsRefunded, 
+          id} =req.body
+
+    
     try {
         const CreateRefund= await RefundModel.create({
             Name,
@@ -99,6 +125,7 @@ const DeleteRefund = async(req,res)=>{
 }
 
 module.exports={
+    GetRefundPerson,
     CreateRefund,
     FillRefund,
     DeleteRefund,

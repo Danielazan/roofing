@@ -1,6 +1,7 @@
 const express = require("express")
 
 const {
+    GetRefundPerson,
     CreateRefund,
     FillRefund,
     DeleteRefund,
@@ -9,7 +10,7 @@ const {
 
 const router= express.Router()
 
-//router.get("/batches/:MaterialName", GetAllBatch)
+router.get("/refund/:id", GetRefundPerson)
 
 router.post("/refund", CreateRefund)
 

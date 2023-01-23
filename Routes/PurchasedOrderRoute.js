@@ -10,7 +10,7 @@ const {
 const router = express.Router()
 
 router.get("/order", GetAllOrder)
- router.post("/report",createOrder )
+ router.post("/order",createOrder )
  router.delete("/order", DeleteOrder)
  router.patch("/order", UpdateOrder)
 
