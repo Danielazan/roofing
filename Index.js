@@ -1,4 +1,5 @@
 const express =require("express")
+import Inventry from './../New/src/Pages/SalesComponent/Inventry';
 
 const cron = require("node-cron")
 
@@ -28,6 +29,8 @@ const Batch = require("./Routes/BatchRoute")
 const Refund = require("./Routes/RefundRoute")
 
 const Order = require("./Routes/PurchasedOrderRoute")
+
+const Inventry = require ("./Routes/InventryRoute")
 
 require("dotenv").config()
 
@@ -62,6 +65,8 @@ app.use("/api", Enquiry)
 app.use("/api", Batch)
 
 app.use("/api", Order)
+
+app.use("/api", Inventry)
 
 mongoose.connect(process.env.MONOURL)
 .then( ()=>{

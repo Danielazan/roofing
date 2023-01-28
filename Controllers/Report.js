@@ -73,6 +73,36 @@ const SendReport = async (req,res)=>{
         }
 }
 
+const SendPdfReport =async (req, res)=>{
+    const pdfData = req.body;
+
+  // create the email transport
+  
+  const email = "danfrancix@gmail.com"
+  // define the email options
+  const mailOptions = {
+    from: process.env.Email,
+    to: email,
+    subject: 'Sales Report',
+    text: 'See the attached PDF',
+    attachments: [{
+      filename: 'document.pdf',
+      content: pdfData,
+      contentType: 'application/pdf'
+    }]
+  };
+
+  // send the email
+  try {
+    await transporter.sendMail(mailOptions);
+    res.status(200).send('Email sent with PDF attachment');
+  } catch (err) {
+    res.status(500).send('Error sending email with PDF attachment');
+  }
 
 
-module.exports = {SendReport, GetReport}
+}
+
+
+
+module.exports = {SendReport, GetReport, SendPdfReport}
